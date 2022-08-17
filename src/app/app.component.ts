@@ -8,7 +8,7 @@ import * as moment from 'moment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  datePicker = new FormControl(moment("2022-10-23", true), [Validators.required]);
+  datePicker = new FormControl(null, [Validators.required]);
 
   getErrors(formControl: FormControl): string[] {
     const errors = Object.keys(formControl.errors ?? {});
