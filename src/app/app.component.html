@@ -1,15 +1,17 @@
-<div>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" [formControl]="datePicker" />
-    <mat-hint>DD/MM/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker">
-      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-    </mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngFor="let error of getErrors(datePicker)">
-      - {{ error }}
-    </mat-error>
-  </mat-form-field>
+<div class="container">
+  <div class="datepicker">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" [formControl]="datePicker" />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngFor="let error of getErrors(datePicker)">
+        - {{ error }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>value : {{ getValue(datePicker) }}</div>
+  <button [disabled]="!datePicker.valid">Next</button>
 </div>
-<div>value : {{ getValue(datePicker) }}</div>
-<button [disabled]="!datePicker.valid">Next</button>
