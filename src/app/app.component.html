@@ -7,11 +7,17 @@
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngFor="let error of getErrors(datePicker)">
-        - {{ error }}
+      <mat-error *ngIf="datePicker.touched && datePicker.hasError('required') &&
+              !datePicker.hasError('matDatepickerParse')">
+        Champ obligatoire
+      </mat-error>
+      <mat-error *ngIf="datePicker.touched && datePicker.hasError('matDatepickerParse')">
+        La date d'effet renseignée est invalide. Elle doit être au format JJ/MM/AAAA. testing format pre-commit
+      </mat-error>
+      <mat-error *ngIf="datePicker.touched && datePicker.hasError('dateGreaterThanToday')">
+        La date saisie doit être antérieure ou égale à la date du jour
       </mat-error>
     </mat-form-field>
   </div>
-  <div>value : {{ getValue(datePicker) }}</div>
   <button [disabled]="!datePicker.valid">Next</button>
 </div>

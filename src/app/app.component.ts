@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import { AbstractControl, FormControl, ValidationErrors, Validators } from '@angular/forms';
+import moment from 'moment';
+
+const dateGreaterThanToday = (control: AbstractControl): ValidationErrors | null => {
+  const date: moment.Moment = moment(control.value);
+  return !date.isValid() || date.isSameOrBefore(moment(new Date()), 'day')
+    ? null
+    : {dateGreaterThanToday: true};
+}
 
 @Component({
   selector: 'app-root',
@@ -8,16 +15,5 @@ import * as moment from 'moment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  datePicker = new FormControl(null, [Validators.required]);
-
-  getErrors(formControl: FormControl): string[] {
-    const errors = Object.keys(formControl.errors ?? {});
-    console.log(errors);
-    return errors;
-  }
-
-  getValue(formControl: FormControl): string {
-    const value = formControl.value;
-    return moment(value).format("YYYY-MM-DD");
-  }
+  datePicker = new FormControl(null, [Validators.required, dateGreaterThanToday]);
 }
